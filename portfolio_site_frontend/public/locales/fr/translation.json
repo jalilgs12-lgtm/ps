@@ -1,0 +1,25 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "expertise": "Compétences",
+    "experience": "Carrière",
+    "projects": "Projets",
+    "contact": "Contact"
+  },
+  "main": {
+    "job_title": "Ingénieur Logiciel"
+  },
+  "contact": {
+    "title": "Contactez-moi",
+    "desc": "Vous avez un projet ? Discutons-en.",
+    "name_label": "Votre Nom",
+    "name_placeholder": "Quel est votre nom ?",
+    "email_label": "Email / Téléphone",
+    "email_placeholder": "Comment puis-je vous joindre ?",
+    "message_label": "Message",
+    "message_placeholder": "Envoyez-moi vos questions",
+    "send": "Envoyer",
+    "success": "Message envoyé avec succès !",
+    "fail": "Échec de l'envoi du message."
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "nav": {
+    "home": "الرئيسية",
+    "expertise": "المهارات",
+    "experience": "الخبرة",
+    "projects": "المشاريع",
+    "contact": "تواصل معي"
+  },
+  "main": {
+    "job_title": "مهندس برمجيات"
+  },
+  "contact": {
+    "title": "تواصل معي",
+    "desc": "لديك مشروع؟ لنناقشه معاً.",
+    "name_label": "الاسم",
+    "name_placeholder": "ما هو اسمك؟",
+    "email_label": "البريد الإلكتروني / الهاتف",
+    "email_placeholder": "كيف يمكنني الاتصال بك؟",
+    "message_label": "الرسالة",
+    "message_placeholder": "أرسل لي استفساراتك",
+    "send": "إرسال",
+    "success": "تم إرسال الرسالة بنجاح!",
+    "fail": "فشل إرسال الرسالة."
+  }
+}

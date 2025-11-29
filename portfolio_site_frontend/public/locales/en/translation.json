@@ -1,0 +1,25 @@
+{
+  "nav": {
+    "home": "Home",
+    "expertise": "Expertise",
+    "experience": "Career",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "main": {
+    "job_title": "Software Engineer"
+  },
+  "contact": {
+    "title": "Contact Me",
+    "desc": "Got a project? Let's talk.",
+    "name_label": "Your Name",
+    "name_placeholder": "What's your name?",
+    "email_label": "Email / Phone",
+    "email_placeholder": "How can I reach you?",
+    "message_label": "Message",
+    "message_placeholder": "Send me your questions",
+    "send": "Send",
+    "success": "Message sent successfully!",
+    "fail": "Failed to send message."
+  }
+}

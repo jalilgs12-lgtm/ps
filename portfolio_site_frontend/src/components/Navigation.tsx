@@ -1,0 +1,322 @@
+import React, { useEffect, useState } from "react";
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import List from '@mui/material/List';
+import ListIcon from '@mui/icons-material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import MenuIcon from '@mui/icons-material/Menu';
+import Toolbar from '@mui/material/Toolbar';
+
+const drawerWidth = 240;
+
+// Static nav items
+const navItems = [
+  ['Expertise', 'expertise'],
+  ['History', 'history'],
+  ['Projects', 'projects'],
+  ['Contact', 'contact'],
+];
+
+function Navigation({ parentToChild, modeChange }: any) {
+  const { mode } = parentToChild;
+  const [mobileOpen, setMobileOpen] = useState<boolean>(false);
+  const [scrolled, setScrolled] = useState<boolean>(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen((prevState) => !prevState);
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const navbar = document.getElementById("navigation");
+      if (navbar) {
+        const scrolled = window.scrollY > navbar.clientHeight;
+        setScrolled(scrolled);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const scrollToSection = (section: string) => {
+    const element = document.getElementById(section);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const drawer = (
+    <Box
+      className="navigation-bar-responsive"
+      onClick={handleDrawerToggle}
+      sx={{ textAlign: 'center' }}
+    >
+      <p className="mobile-menu-top">
+        <ListIcon /> Menu
+      </p>
+      <Divider />
+      <List>
+        {navItems.map((item) => (
+          <ListItem key={item[0]} disablePadding>
+            <ListItemButton
+              sx={{ textAlign: 'center' }}
+              onClick={() => scrollToSection(item[1])}
+            >
+              <ListItemText primary={item[0]} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
+
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar
+        component="nav"
+        id="navigation"
+        className={`navbar-fixed-top${scrolled ? ' scrolled' : ''}`}
+      >
+        <Toolbar className="navigation-bar">
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: 'none' } }}
+          >
+            <MenuIcon />
+          </IconButton>
+
+          {/* Dark Mode Toggle */}
+          {mode === 'dark' ? (
+            <LightModeIcon onClick={() => modeChange()} />
+          ) : (
+            <DarkModeIcon onClick={() => modeChange()} />
+          )}
+
+          {/* Desktop Menu Items */}
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'none', sm: 'block' },
+              textAlign: 'right',
+            }}
+          >
+            {navItems.map((item) => (
+              <Button
+                key={item[0]}
+                onClick={() => scrollToSection(item[1])}
+                sx={{ color: mode === 'dark' ? '#fff' : '#000' }}
+              >
+                {item[0]}
+              </Button>
+            ))}
+          </Box>
+        </Toolbar>
+      </AppBar>
+
+      <nav>
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true,
+          }}
+          sx={{
+            display: { xs: 'block', sm: 'none' },
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
+              width: drawerWidth,
+            },
+          }}
+        >
+          {drawer}
+        </Drawer>
+      </nav>
+    </Box>
+  );
+}
+
+export default Navigation;
+
+
+// import React, { useEffect, useState } from "react";
+// import AppBar from '@mui/material/AppBar';
+// import Box from '@mui/material/Box';
+// import Button from '@mui/material/Button';
+// import CssBaseline from '@mui/material/CssBaseline';
+// import DarkModeIcon from '@mui/icons-material/DarkMode';
+// import Divider from '@mui/material/Divider';
+// import Drawer from '@mui/material/Drawer';
+// import IconButton from '@mui/material/IconButton';
+// import LightModeIcon from '@mui/icons-material/LightMode';
+// import List from '@mui/material/List';
+// import ListIcon from '@mui/icons-material/List';
+// import ListItem from '@mui/material/ListItem';
+// import ListItemButton from '@mui/material/ListItemButton';
+// import ListItemText from '@mui/material/ListItemText';
+// import MenuIcon from '@mui/icons-material/Menu';
+// import Toolbar from '@mui/material/Toolbar';
+// // 1. Import Translation Hook
+// import { useTranslation } from "react-i18next";
+
+// const drawerWidth = 240;
+
+// function Navigation({parentToChild, modeChange}: any) {
+//   const {mode} = parentToChild;
+//   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
+//   const [scrolled, setScrolled] = useState<boolean>(false);
+
+//   // 2. Use Hook
+//   const { t, i18n } = useTranslation();
+
+//   // 3. Define Nav Items dynamically using translations
+//   const navItems = [
+//     [t('nav.expertise'), 'expertise'],
+//     [t('nav.experience'), 'history'],
+//     [t('nav.projects'), 'projects'],
+//     [t('nav.contact'), 'contact']
+//   ];
+
+//   const handleDrawerToggle = () => {
+//     setMobileOpen((prevState) => !prevState);
+//   };
+
+//   useEffect(() => {
+//     const handleScroll = () => {
+//       const navbar = document.getElementById("navigation");
+//       if (navbar) {
+//         const scrolled = window.scrollY > navbar.clientHeight;
+//         setScrolled(scrolled);
+//       }
+//     };
+//     window.addEventListener('scroll', handleScroll);
+//     return () => {
+//       window.removeEventListener('scroll', handleScroll);
+//     };
+//   }, []);
+
+//   const scrollToSection = (section: string) => {
+//     const element = document.getElementById(section);
+//     if (element) {
+//       element.scrollIntoView({ behavior: 'smooth' });
+//     }
+//   };
+
+//   const changeLanguage = (lng: string) => {
+//     i18n.changeLanguage(lng);
+//   };
+
+//   // Style for language buttons
+//   const langBtnStyle = (lng: string) => ({
+//     minWidth: 'auto',
+//     padding: '0 5px',
+//     color: mode === 'dark' ? 'white' : 'black',
+//     fontWeight: i18n.language === lng ? 'bold' : 'normal',
+//     textDecoration: i18n.language === lng ? 'underline' : 'none',
+//     fontSize: '0.8rem'
+//   });
+
+//   const drawer = (
+//     <Box className="navigation-bar-responsive" onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+//       <p className="mobile-menu-top"><ListIcon/>Menu</p>
+//       <Divider />
+      
+//       {/* Mobile Language Switcher */}
+//       <Box sx={{ py: 2 }}>
+//         <Button onClick={() => changeLanguage('en')}>EN</Button>
+//         <Button onClick={() => changeLanguage('fr')}>FR</Button>
+//         <Button onClick={() => changeLanguage('ar')}>AR</Button>
+//       </Box>
+//       <Divider />
+
+//       <List>
+//         {navItems.map((item) => (
+//           <ListItem key={item[0]} disablePadding>
+//             <ListItemButton sx={{ textAlign: 'center' }} onClick={() => scrollToSection(item[1])}>
+//               <ListItemText primary={item[0]} />
+//             </ListItemButton>
+//           </ListItem>
+//         ))}
+//       </List>
+//     </Box>
+//   );
+
+//   return (
+//     <Box sx={{ display: 'flex' }}>
+//       <CssBaseline />
+//       <AppBar component="nav" id="navigation" className={`navbar-fixed-top${scrolled ? ' scrolled' : ''}`}>
+//         <Toolbar className='navigation-bar'>
+          
+//           <IconButton
+//             color="inherit"
+//             aria-label="open drawer"
+//             edge="start"
+//             onClick={handleDrawerToggle}
+//             sx={{ mr: 2, display: { sm: 'none' } }}
+//           >
+//             <MenuIcon />
+//           </IconButton>
+
+//           {/* Dark Mode Toggle */}
+//           {mode === 'dark' ? (
+//             <LightModeIcon onClick={() => modeChange()}/>
+//           ) : (
+//             <DarkModeIcon onClick={() => modeChange()}/>
+//           )}
+
+//           {/* 4. Desktop Language Switcher (Next to Dark Mode Icon) */}
+//           <Box sx={{ ml: 2, display: { xs: 'none', sm: 'block' } }}>
+//              <Button onClick={() => changeLanguage('en')} sx={langBtnStyle('en')}>EN</Button>
+//              <span style={{color: mode==='dark'?'white':'black'}}>|</span>
+//              <Button onClick={() => changeLanguage('fr')} sx={langBtnStyle('fr')}>FR</Button>
+//              <span style={{color: mode==='dark'?'white':'black'}}>|</span>
+//              <Button onClick={() => changeLanguage('ar')} sx={langBtnStyle('ar')}>AR</Button>
+//           </Box>
+
+//           {/* Desktop Menu Items */}
+//           <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, textAlign: 'right' }}>
+//             {navItems.map((item) => (
+//               <Button key={item[0]} onClick={() => scrollToSection(item[1])} sx={{ color: mode === 'dark' ? '#fff' : '#000' }}>
+//                 {item[0]}
+//               </Button>
+//             ))}
+//           </Box>
+
+//         </Toolbar>
+//       </AppBar>
+//       <nav>
+//         <Drawer
+//           variant="temporary"
+//           open={mobileOpen}
+//           onClose={handleDrawerToggle}
+//           ModalProps={{
+//             keepMounted: true, 
+//           }}
+//           sx={{
+//             display: { xs: 'block', sm: 'none' },
+//             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+//           }}
+//         >
+//           {drawer}
+//         </Drawer>
+//       </nav>
+//     </Box>
+//   );
+// }
+
+// export default Navigation;
