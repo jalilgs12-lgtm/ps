@@ -15,7 +15,7 @@ REACT_DIR="portfolio_site_frontend"
 if [ -d "$REACT_DIR" ]; then
   echo "Building React frontend in $REACT_DIR..."
   cd "$REACT_DIR"
-  npm install
+  npm install --legacy-peer-deps
   npm run build
   cd ..
   echo "React build complete."
