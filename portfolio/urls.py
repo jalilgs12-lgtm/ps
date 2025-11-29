@@ -22,18 +22,14 @@ from django.views.generic import TemplateView
 
 
 urlpatterns = [
-    # NOTE: It's unusual to map 'jalil_dash/' to the admin.site.urls.
-    # Usually, only one path maps to admin.site.urls.
-    # I'll keep it for now, but ensure this is what you intend.
     path('jalil_dash/', admin.site.urls),
     path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
     path('api/', include('api.urls')),
 
-    # 💥 CRITICAL FIX: CATCH-ALL REACT ROUTE 💥
-    # This must be the absolute last entry. It sends all unmatched URLs to index.html.
-    re_path(r'^(?:.*)$', TemplateView.as_view(template_name='index.html')),
+    # 💥 FINAL CRITICAL FIX: EXCLUDE STATIC/MEDIA PATHS 💥
+    # This pattern matches everything *except* paths starting with /static/ or /media/
+    re_path(r'^(?:(?!static/|media/).*)$', TemplateView.as_view(template_name='index.html')),
 ]
-
 # urlpatterns = [
 #     path('jalil_dash/', admin.site.urls),
 #     path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
