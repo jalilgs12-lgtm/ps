@@ -6,18 +6,23 @@ set -e
 # Run standard build script first
 ./build.sh
 
-# Check if required environment variables are set for superuser creation
+# --- Database and Setup Commands ---
+python manage.py migrate
+python manage.py collectstatic --noinput
+
+# --- Superuser Creation ---
 if [ -z "$DJANGO_SUPERUSER_USERNAME" ] || [ -z "$DJANGO_SUPERUSER_PASSWORD" ]; then
-    echo "Skipping superuser creation: DJANGO_SUPERUSER_USERNAME and/or DJANGO_SUPERUSER_PASSWORD environment variables are missing."
+    echo "Skipping superuser creation: DJANGO_SUPERUSER_USERNAME/PASSWORD environment variables are missing."
 else
     echo "Attempting to create superuser..."
-    # Execute the Django command non-interactively using the provided environment variables
-    # The --noinput flag is necessary to bypass the TTY requirement
+    # Create superuser non-interactively
     python manage.py createsuperuser --noinput \
         --username "$DJANGO_SUPERUSER_USERNAME" \
         --email "$DJANGO_SUPERUSER_EMAIL" || true
     echo "Superuser command executed."
 fi
 
-# Run the standard start command (gunicorn) to launch the app
+# --- Server Start Command (CRITICAL) ---
+# This command MUST run last and MUST be the Gunicorn command.
+echo "Starting Gunicorn server..."
 gunicorn portfolio.wsgi --log-file -
