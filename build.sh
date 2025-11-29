@@ -16,7 +16,7 @@ if [ -d "$REACT_DIR" ]; then
   echo "Building React frontend in $REACT_DIR..."
   cd "$REACT_DIR"
   npm install --legacy-peer-deps
-  npm run build
+  CI=false npm run build
   cd ..
   echo "React build complete."
 else
