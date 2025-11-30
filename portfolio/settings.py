@@ -69,7 +69,7 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -180,12 +180,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [REACT_BUILD_DIR / 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# CLOUDINARY STORAGE
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 
+# --- RENDER STATIC FILE CONFIGURATION (Keep WhiteNoise) ---
+# WhiteNoise handles serving the React build from the local disk.
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# --- REQUIRED URLS ---
+STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [REACT_BUILD_DIR / 'static']
+
+# Ensure WhiteNoise is in your MIDDLEWARE
