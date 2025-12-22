@@ -49,20 +49,90 @@
     }
 }
 
+// .about-section .image-wrapper {
+//     z-index: 2;
+//     img {
+//         width: 150px;
+//         border-radius: 50%;
+//     }
+// }
+/* --- 1. Base Wrapper --- */
 .about-section .image-wrapper {
+    position: relative;
+    width: min(40vw, 170px);
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+/* --- 2. The Ring (Light Mode: Soft Charcoal & Silver) --- */
+.about-section .image-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: -4px; /* Slightly thinner for a cleaner look in light mode */
+    border-radius: 50%;
+    z-index: -1;
+    filter: blur(6px); /* Sharp but soft glow */
+    opacity: 0.7;
+    animation: spin-glow 6s linear infinite; /* Slower spin for a more elegant feel */
+
+    /* LIGHT MODE COLORS: Charcoal and Metallic Slates */
+    background: conic-gradient(
+        from 0deg,
+        #333333,   /* Soft Charcoal */
+        #7f8c8d,   /* Slate Gray */
+        #ffffff,   /* White highlight for shine */
+        #7f8c8d,
+        #333333
+    );
+    /* Subtle shadow to give it weight */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* --- 3. The Ring (Dark Mode: Purple Neon Override) --- */
+.dark-mode .about-section .image-wrapper::before {
+    inset: -6px; /* Slightly thicker for neon effect */
+    filter: blur(12px);
+    opacity: 1;
+    animation: spin-glow 4s linear infinite; /* Faster spin for neon energy */
+    
+    background: conic-gradient(
+        from 0deg,
+        #ff00ff,
+        #5b1dff,
+        #000000, 
+        #5b1dff,
+        #ff00ff
+    );
+    box-shadow: 0 0 25px rgba(255, 0, 255, 0.35);
+}
+
+/* --- 4. The Image --- */
+.about-section .image-wrapper img {
+    width: 92%;
+    height: 92%;
+    border-radius: 50%;
+    object-fit: cover;
     z-index: 2;
-    img {
-        width: 150px;
-        border-radius: 50%;
-    }
+    border: 3px solid #ffffff; /* Clean white border in light mode */
+    background: #fff;
+    transition: all 0.3s ease; /* Smooth transition when switching modes */
 }
 
-.about p {
-    text-align: center;
-    padding-top: 30%;
-    padding-bottom: 30%;
+/* Dark Mode Image Border Override */
+.dark-mode .about-section .image-wrapper img {
+    border-color: #1a1a1a;
+    background: #000;
 }
 
+/* Animation Keyframes */
+@keyframes spin-glow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 @media screen {
     @media (max-width: 567px) {
         .nav-left{
@@ -148,8 +218,9 @@
         }
 
         .about-section .image-wrapper {
-            padding-left: 5%;
-            width: 100%;
-        }
+    margin-left: 5%;
+    width: min(45vw, 140px);
+}
+
     }
 }
