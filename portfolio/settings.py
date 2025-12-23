@@ -14,11 +14,29 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 load_dotenv()
+
+# cloudinary.config(
+#     cloud_name = os.getenv("CLOUDINARY_CLOUD_NAME"),
+#     api_key = os.getenv("CLOUDINARY_API_KEY"),
+#     api_secret = os.getenv("CLOUDINARY_API_SECRET")
+# )
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+}
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -50,6 +68,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'admin_honeypot',
     'modeltranslation',
+
+    'cloudinary',
+    'cloudinary_storage',
 
     'api',
 ]
@@ -157,10 +178,27 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    REACT_BUILD_DIR / 'static',
-]
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = [
+#     REACT_BUILD_DIR / 'static',
+# ]
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# --- RENDER STATIC FILE CONFIGURATION (Keep WhiteNoise) ---
+# WhiteNoise handles serving the React build from the local disk.
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# --- REQUIRED URLS ---
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [REACT_BUILD_DIR / 'static']
+
+# Ensure WhiteNoise is in your MIDDLEWARE
