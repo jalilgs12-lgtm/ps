@@ -1,2 +1,15 @@
 .env
 .env.development
+# Python cache
+__pycache__/
+*.pyc
+
+# Django collected static
+staticfiles/
+
+# Uploaded media
+media/
+profile_images/
+
+# stray file from earlier command
+et --hard 6475e41
