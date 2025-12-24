@@ -1,15 +1,9 @@
 import axios from 'axios';
 
-// 1. Create the main API instance
 const api = axios.create({
-  // baseURL: 'http://127.0.0.1:8000/api/', // Your Django Backend Address
-  baseURL: 'https://ps-tnzj.onrender.com/api/',
-  timeout: 5000,
-  headers: {
-    'Content-Type': 'application/json',
-    accept: 'application/json',
-  },
+  baseURL: process.env.REACT_APP_API_BASE_URL,
 });
+
 
 // 2. Define the Data Types (These match your Django Models)
 export interface Profile {

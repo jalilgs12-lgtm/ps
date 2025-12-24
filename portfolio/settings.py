@@ -115,13 +115,29 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config(
-        # Use the DATABASE_URL environment variable for deployment.
-        # conn_max_age=600 is optional connection pooling.
-        conn_max_age=600
-    )
-}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         # Use the DATABASE_URL environment variable for deployment.
+#         # conn_max_age=600 is optional connection pooling.
+#         conn_max_age=600
+#     )
+# }
+
+if os.getenv("DATABASE_URL"):
+    # Production
+    DATABASES = {
+        "default": dj_database_url.config(conn_max_age=600)
+    }
+    print("Using database: Production Neon PostgreSQL")
+else:
+    # Local
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
+    print("Using database: Local SQLite")
 
 # DATABASES = {
 #     'default': {
