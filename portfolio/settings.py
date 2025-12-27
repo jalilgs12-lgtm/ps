@@ -215,11 +215,7 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-# --- RENDER STATIC FILE CONFIGURATION (Keep WhiteNoise) ---
-# WhiteNoise handles serving the React build from the local disk.
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # --- REQUIRED URLS ---
 STATIC_URL = '/static/'
