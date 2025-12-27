@@ -210,9 +210,7 @@ STORAGES = {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
-        # Changed from CompressedManifestStaticFilesStorage to CompressedStaticFilesStorage
-        # This prevents the "MissingFileError" from crashing your build.
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+        "BACKEND": "whitenoise.storage.StaticFilesStorage",
     },
 }
 
