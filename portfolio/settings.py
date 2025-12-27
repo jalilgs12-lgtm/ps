@@ -57,6 +57,7 @@ CORS_ALLOWED_ORIGINS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'cloudinary_storage',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -70,7 +71,6 @@ INSTALLED_APPS = [
     'modeltranslation',
 
     'cloudinary',
-    'cloudinary_storage',
 
     'api',
 ]
@@ -204,7 +204,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
-
+# 2. Add the Django 5.x Storage Dictionary
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # --- RENDER STATIC FILE CONFIGURATION (Keep WhiteNoise) ---
