@@ -214,7 +214,11 @@ STORAGES = {
     },
 }
 
+# 2. Add this back! Cloudinary package needs this specific line to not crash
+STATICFILES_STORAGE = "whitenoise.storage.StaticFilesStorage"
 
+# 3. Add this for good measure (some packages still look for it)
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # --- REQUIRED URLS ---
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
