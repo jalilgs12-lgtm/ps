@@ -223,6 +223,6 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [REACT_BUILD_DIR / 'static']
+STATICFILES_DIRS = [REACT_BUILD_DIR / 'static', BASE_DIR / 'static',]
 
 # Ensure WhiteNoise is in your MIDDLEWARE
