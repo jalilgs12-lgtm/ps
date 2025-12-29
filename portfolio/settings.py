@@ -47,10 +47,21 @@ SECRET_KEY = 'django-insecure-!lvi!m2_+d932ce0u*p)1s_249!nkzuir*9965sea8t-j7*$x^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*", os.getenv("RAILWAY_PUBLIC_DOMAIN", "")]
+# ALLOWED_HOSTS = ["*", os.getenv("RAILWAY_PUBLIC_DOMAIN", ""), 'portfolio.ecowebsite.store']
+ALLOWED_HOSTS = [
+    ".onrender.com",             # Matches any Render URL
+    ".ecowebsite.store",         # Matches portfolio.ecowebsite.store and others
+    "localhost",
+    "127.0.0.1"
+]
+CSRF_TRUSTED_ORIGINS = [
+    "https://portfolio.ecowebsite.store",
+    "https://*.onrender.com"
+]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    'https://portfolio.ecowebsite.store',
 ]
 
 
