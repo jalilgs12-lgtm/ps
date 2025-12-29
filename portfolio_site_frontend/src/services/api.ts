@@ -14,6 +14,8 @@ export interface Profile {
   github_link: string;
   linkedin_link: string;
   facebook_link: string | null;
+  instagram_link: string | null;
+  whatsapp_link: string | null;
 }
 
 export interface Project {

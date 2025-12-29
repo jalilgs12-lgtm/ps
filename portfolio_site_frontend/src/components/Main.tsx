@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram'; // <-- Add this import
+import WhatsAppIcon from '@mui/icons-material/WhatsApp'; // <-- Add this import
 import '../assets/styles/Main.scss';
 import { getProfile, Profile } from '../services/api';
 
@@ -54,6 +56,20 @@ function Main() {
             {profile.facebook_link && (
               <a href={profile.facebook_link} target="_blank" rel="noreferrer">
                 <FacebookIcon/>
+              </a>
+            )}
+            {/* --- ADD INSTAGRAM HERE --- */}
+            {profile.instagram_link && (
+              <a href={profile.instagram_link} target="_blank" rel="noreferrer"><InstagramIcon/></a>
+            )}
+            {/* WhatsApp */}
+            {profile.whatsapp_link && (
+              <a 
+                href={`https://wa.me/${profile.whatsapp_link.replace('+', '')}`} 
+                target="_blank" 
+                rel="noreferrer"
+              >
+                <WhatsAppIcon/>
               </a>
             )}
           </div>

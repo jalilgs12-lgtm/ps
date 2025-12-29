@@ -9,6 +9,8 @@ class Profile(models.Model):
     github_link = models.URLField(blank=True)
     linkedin_link = models.URLField(blank=True)
     facebook_link = models.URLField(blank=True)
+    instagram_link = models.URLField(blank=True, help_text="Link to your Instagram profile")
+    whatsapp_link = models.CharField(max_length=20, blank=True, help_text="Enter number with country code (e.g., +213541120811)")
 
     def __str__(self):
         return self.name
